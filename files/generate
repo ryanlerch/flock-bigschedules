@@ -1,0 +1,13 @@
+#!/bin/bash
+rm *.pdf
+for i in $(ls);
+do
+	pushd $i;
+	for j in $(ls *.svg);
+	do
+		inkscape --export-pdf=$j.pdf $j;
+	done;
+	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=../$i.pdf *.pdf;
+	rm *.pdf
+	popd;
+done;
